@@ -1,0 +1,40 @@
+.shell {
+  --panel-radius: 28px;
+  position: relative;
+  border-radius: var(--panel-radius);
+  overflow: hidden;
+  isolation: isolate;
+  background: #000;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.rim {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  transition: background 0.12s ease-out;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+}
+
+@media (max-width: 1100px) {
+  .shell {
+    --panel-radius: 24px;
+  }
+}
