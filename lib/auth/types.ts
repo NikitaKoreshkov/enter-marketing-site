@@ -7,6 +7,7 @@ export type PublicUser = {
   avatarUrl: string | null;
   emailVerified: boolean;
   hasPassword: boolean;
+  isAdmin: boolean;
   createdAt: string;
 };
 
@@ -18,5 +19,6 @@ export type DbUser = {
   email_verified: boolean;
   google_id: string | null;
   avatar_url: string | null;
+  is_admin: boolean;
   created_at: Date;
 };

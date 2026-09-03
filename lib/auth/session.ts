@@ -21,6 +21,7 @@ export function toPublicUser(row: DbUser): PublicUser {
     avatarUrl: row.avatar_url,
     emailVerified: row.email_verified,
     hasPassword: Boolean(row.password_hash),
+    isAdmin: Boolean(row.is_admin),
     createdAt: row.created_at.toISOString(),
   };
 }

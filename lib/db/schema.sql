@@ -6,9 +6,12 @@ CREATE TABLE IF NOT EXISTS users (
   email_verified BOOLEAN NOT NULL DEFAULT FALSE,
   google_id TEXT UNIQUE,
   avatar_url TEXT,
+  is_admin BOOLEAN NOT NULL DEFAULT FALSE,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+ALTER TABLE users ADD COLUMN IF NOT EXISTS is_admin BOOLEAN NOT NULL DEFAULT FALSE;
 
 CREATE TABLE IF NOT EXISTS sessions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -110,3 +113,40 @@ CREATE TABLE IF NOT EXISTS user_orders (
 );
 
 CREATE INDEX IF NOT EXISTS user_orders_user_id_idx ON user_orders(user_id);
+
+CREATE TABLE IF NOT EXISTS site_cases (
+  id TEXT PRIMARY KEY,
+  title TEXT NOT NULL,
+  service TEXT NOT NULL DEFAULT '',
+  description TEXT NOT NULL DEFAULT '',
+  work JSONB NOT NULL DEFAULT '[]'::jsonb,
+  result TEXT NOT NULL DEFAULT '',
+  results JSONB NOT NULL DEFAULT '[]'::jsonb,
+  cover TEXT NOT NULL DEFAULT '',
+  images JSONB NOT NULL DEFAULT '[]'::jsonb,
+  videos JSONB NOT NULL DEFAULT '[]'::jsonb,
+  instagram TEXT,
+  website TEXT,
+  sort_order INT NOT NULL DEFAULT 0,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS site_cases_sort_order_idx ON site_cases(sort_order);
+
+CREATE TABLE IF NOT EXISTS site_meta (
+  key TEXT PRIMARY KEY,
+  value TEXT NOT NULL,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS site_uploads (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  filename TEXT NOT NULL,
+  mime_type TEXT NOT NULL,
+  byte_size INT NOT NULL DEFAULT 0,
+  data BYTEA NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS site_uploads_created_at_idx ON site_uploads(created_at DESC);

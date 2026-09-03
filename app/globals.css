@@ -1,6 +1,26 @@
 @import "tailwindcss";
 
-/* ── Reset ─────────────────────────────────────────────────────────────────── */
+@font-face {
+  font-family: "Brandbe";
+  src: url("https://static.tildacdn.pro/tild6435-3863-4230-a161-313132386364/Brandbe-Bold_1.woff")
+    format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --color-bg: #000000;
+  --color-text: #ffffff;
+  --color-muted: rgba(255, 255, 255, 0.65);
+  --color-accent: #ffc52e;
+  --color-border: rgba(255, 255, 255, 0.12);
+  --font-body: var(--font-roboto), Arial, sans-serif;
+  --font-display: "Brandbe", Arial, sans-serif;
+  --container: min(1120px, calc(100% - 40px));
+  --header-offset: 112px;
+}
+
 *,
 *::before,
 *::after {
@@ -11,69 +31,72 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--header-offset);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-  max-width: 100%;
 }
 
-/* ── Body ───────────────────────────────────────────────────────────────────── */
+#hero,
+#cases,
+#footer {
+  scroll-margin-top: var(--header-offset);
+}
+
 body {
-  font-family: var(--font-sans), system-ui, sans-serif;
-  color: #ffffff;
-  background: #000000;
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background: var(--color-bg);
   min-height: 100vh;
-  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+img,
+video {
+  display: block;
   max-width: 100%;
 }
 
-/* ── Background container ───────────────────────────────────────────────────── */
-#background-container {
-  position: fixed;
-  inset: 0;
-  background: #000000;
-}
-
-/* ── Page content ──────────────────────────────────────────────────────────── */
-#page-content {
-  position: relative;
-  overflow-x: clip;
-  max-width: 100%;
-  /* Без z-index — иначе весь контент (включая хедер) окажется ПОД glass portal (129) */
-}
-
-/* Хедер прозрачный — фон рисует LiquidGlassHeaderBackground portal */
-#site-header.header-scrolled {
-  background: transparent;
-}
-
-/* ── Contact modal: blur через filter (backdrop-filter здесь ненадёжен) ── */
-#background-container,
-#site-noise-overlay,
-#page-content > main,
-#page-content > main ~ *,
-[data-site-header-shell],
-#liquid-glass-header-portal > * {
-  transition: filter 0.12s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-html[data-contact-modal-open] [data-site-header-shell],
-html[data-contact-modal-open] #liquid-glass-header-portal {
-  visibility: hidden;
-  pointer-events: none;
-}
-
-html[data-contact-modal-open] #background-container,
-html[data-contact-modal-open] #site-noise-overlay,
-html[data-contact-modal-open] #page-content > main,
-html[data-contact-modal-open] #page-content > main ~ * {
-  filter: blur(28px) brightness(0.55);
-  pointer-events: none;
-  user-select: none;
-}
-
-html[data-contact-modal-open],
-html[data-contact-modal-open] body {
+html[data-menu-open],
+html[data-menu-open] body,
+html[data-case-modal-open],
+html[data-case-modal-open] body,
+html[data-media-viewer-open],
+html[data-media-viewer-open] body {
   overflow: hidden;
-  overscroll-behavior: none;
+}
+
+#site-shell {
+  min-height: 100vh;
+  transition: filter 0.12s ease;
+}
+
+html[data-case-modal-open] #site-shell,
+html[data-media-viewer-open] #site-shell {
+  filter: blur(22px);
+}
+
+html[data-menu-open] main,
+html[data-menu-open] #footer {
+  filter: blur(22px);
+  transition: filter 0.12s ease;
+}
+
+html[data-menu-open] header {
+  z-index: 60;
+}
+
+html[data-media-viewer-open] [data-case-modal] {
+  filter: blur(22px);
+  transition: filter 0.1s ease;
 }

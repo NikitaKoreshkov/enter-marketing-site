@@ -1,29 +1,22 @@
-import { Header } from "@/components/header/Header";
-import { HeroSection } from "@/components/home/hero-section";
-import { ServicesSection } from "@/components/home/services-section";
-import { FaceSection } from "@/components/home/face-section";
-import { NichesSection } from "@/components/home/niches-section";
-import { ResultsSection } from "@/components/home/results-section";
-import { ReviewsSection } from "@/components/home/reviews-section";
-import { ContactSection } from "@/components/home/contact-section";
-import { FooterWordmark } from "@/components/footer/FooterWordmark";
-import { Footer } from "@/components/footer/Footer";
+import { SiteHeader } from "@/components/site/header";
+import { HeroSection } from "@/components/site/hero";
+import { CasesSection } from "@/components/site/cases-section";
+import { SiteFooter } from "@/components/site/footer";
+import { listSiteCases } from "@/lib/site/cases-store";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const cases = await listSiteCases();
+
   return (
     <>
-      <Header />
+      <SiteHeader />
       <main>
         <HeroSection />
-        <ServicesSection />
-        <FaceSection />
-        <NichesSection />
-        <ResultsSection />
-        <ReviewsSection />
-        <ContactSection />
+        <CasesSection cases={cases} />
       </main>
-      <FooterWordmark />
-      <Footer />
+      <SiteFooter />
     </>
   );
 }

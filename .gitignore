@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+.tmp-drive-cases/
+
+# local source video (the site uses public/hero-showreel.mp4)
+/Buff Motion Showeel 2025 (1).mp4

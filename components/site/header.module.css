@@ -1,0 +1,121 @@
+.header {
+  position: fixed;
+  top: 12px;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  width: 80%;
+  max-width: 1120px;
+  margin-inline: auto;
+  isolation: isolate;
+  /* No overflow:hidden / clip-path — both break backdrop-filter in Chrome */
+  background: rgba(0, 0, 0, 0.15);
+  border: none;
+  border-radius: 20px;
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.42) 0%,
+    rgba(255, 255, 255, 0.12) 35%,
+    rgba(255, 255, 255, 0.05) 70%,
+    rgba(255, 255, 255, 0.2) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.header::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: 19px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(255, 255, 255, 0) 42%
+  );
+  pointer-events: none;
+}
+
+.spacer {
+  height: 88px;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 64px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  line-height: 0;
+}
+
+.logoImg {
+  display: block;
+  width: auto;
+  height: 28px;
+}
+
+@media (min-width: 768px) {
+  .logoImg {
+    height: 32px;
+  }
+}
+
+.burger {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+}
+
+.burgerLine {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--color-text);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.burgerOpen .burgerLine:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.burgerOpen .burgerLine:nth-child(2) {
+  opacity: 0;
+}
+
+.burgerOpen .burgerLine:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}

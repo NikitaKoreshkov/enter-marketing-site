@@ -1,27 +1,19 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Onest } from "next/font/google";
-import { SiteNoiseOverlay } from "@/components/noise/SiteNoiseOverlay";
+import { Roboto } from "next/font/google";
 import { AppProviders } from "@/components/providers/app-providers";
 import "./globals.css";
 
-const onest = Onest({
+const roboto = Roboto({
   subsets: ["latin", "cyrillic"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-sans",
-  display: "swap",
-});
-
-const display = Cormorant_Garamond({
-  subsets: ["latin", "cyrillic"],
-  weight: ["500", "600", "700"],
-  variable: "--font-display",
+  weight: ["300", "400", "500", "700"],
+  variable: "--font-roboto",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Enter Marketing — Маркетинговое агентство в Алматы",
+  title: "Enter Marketing — Digital агентство",
   description:
-    "SMM, таргетированная реклама, видеопроизводство. Рейтинг 4.7 на 2ГИС. Алматы.",
+    "Помогаем компаниям увеличить поток клиентов за счёт рекламы и эффективных инструментов маркетинга.",
 };
 
 export default function RootLayout({
@@ -30,18 +22,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ru" className={`${onest.variable} ${display.variable}`}>
+    <html lang="ru" className={roboto.variable}>
       <body>
-        {/* Layer 1 — background gradients */}
-        <div id="background-container" />
-
-        {/* Layer 2 — page content */}
-        <div id="page-content">
+        <div id="site-shell">
           <AppProviders>{children}</AppProviders>
         </div>
-
-        {/* Layer 3 — noise overlay (z-index: 120, pointer-events: none) */}
-        <SiteNoiseOverlay />
       </body>
     </html>
   );

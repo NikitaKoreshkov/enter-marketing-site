@@ -5,30 +5,24 @@
   "scripts": {
     "dev": "npm run db:migrate && next dev",
     "setup": "npm run db:migrate",
-    "build": "next build",
+    "build": "npm run db:migrate && next build",
     "start": "next start",
     "lint": "eslint",
     "db:migrate": "tsx scripts/db-migrate.ts"
   },
   "dependencies": {
-    "@react-three/drei": "^10.7.7",
-    "@react-three/fiber": "^9.6.1",
-    "@types/three": "^0.184.1",
     "bcryptjs": "^3.0.3",
     "clsx": "^2.1.1",
     "dotenv": "^17.4.2",
     "framer-motion": "^12.40.0",
     "jose": "^6.2.3",
-    "liquid-glass-react": "^1.1.1",
     "next": "16.2.6",
     "nodemailer": "^8.0.10",
     "pg": "^8.21.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "recharts": "^3.8.1",
-    "swiper": "^12.2.0",
-    "tailwind-merge": "^3.6.0",
-    "three": "^0.184.0"
+    "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
