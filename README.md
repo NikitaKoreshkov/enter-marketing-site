@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Enter Marketing (site) — сборка с админкой
 
-## Getting Started
+Ветка того же агентства, пришедшая на смену [enter-marketing](https://github.com/NikitaKoreshkov/enter-marketing):
+к публичной части добавились админ-панель кейсов и загрузка медиа. Дальше проект
+переехал в ребрендинг [LUNO](https://github.com/NikitaKoreshkov/luno-agency), поэтому
+демо-ссылки у этой сборки свои: основной витринный вариант живёт на
+<https://enter-marketing.vercel.app>, ребрендинговый — на `luno-agency-psi.vercel.app`.
 
-First, run the development server:
+## Страницы
+
+| Маршрут | Что внутри |
+| --- | --- |
+| `/` | Публичная часть агентства |
+| `/cases` | Кейсы |
+| `/admin`, `/admin/cases/new`, `/admin/cases/[id]` | Редактор кейсов |
+| `/admin/login` | Вход в админку |
+| `/login`, `/register`, `/forgot-password`, `/profile` | Кабинет клиента с дашбордом |
+
+API: 19 роутов (`app/api/**`), включая `admin` и `media`.
+
+## Стек
+
+- Next.js (App Router), TypeScript, Tailwind CSS
+- Анимация: `framer-motion` (GSAP и шейдеры остались только в предыдущей сборке)
+- Авторизация: собственные JWT-сессии (`jose` + `bcryptjs`), доступ к админке отдельным
+  слоем в `middleware.ts`
+- Почта: `nodemailer`; данные: `pg` (пул в `lib/db/pool.ts`)
+- Графики: `recharts`
+
+## Запуск
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`.env` в репозиторий не попадает; без `DATABASE_URL` и SMTP-переменных публичные
+страницы работают, админка и заявки требуют базы данных.
